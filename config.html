@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        console.log('Config HTML Loaded');
+        
+    </script>
+    <script src="https://extensions.twitch.tv/extension-helper.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extension Configuration</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script src="config.js"></script> <!-- Link to your config JS file -->
+</head>
+<body>
+    <h1>Configure Your Twitch Extension</h1>
+    <form id="config-form">
+        <label for="setting1">Setting 1:</label>
+        <input type="text" id="setting1" name="setting1">
+        
+        <label for="setting2">Setting 2:</label>
+        <input type="text" id="setting2" name="setting2">
+        
+        <button type="submit">Save Settings</button>
+    </form>
+</body>
+</html>
