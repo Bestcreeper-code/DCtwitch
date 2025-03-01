@@ -1,23 +1,17 @@
-//ui.js
-
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Extension settings UI loaded");
 
     if (window.Twitch && window.Twitch.ext) {
         window.Twitch.ext.actions.requestOpen();
     }
-
-    // Other initialization code
 });
 
-
 document.addEventListener("DOMContentLoaded", function() {
-    // Create and set the body styles
     document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
     document.body.style.textAlign = "center";
     document.body.style.fontFamily = "Arial, sans-serif";
     document.body.style.backgroundSize = "cover";
-    // Create the header (h1)
+
     const header = document.createElement("h1");
     header.innerText = "Choose an action";
     header.style.color = "yellow";
@@ -27,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
     header.style.padding = "10px";
     document.body.appendChild(header);
 
-    // Create the container div for the cards
     const container = document.createElement("div");
     container.classList.add("container");
     container.style.display = "flex";
@@ -36,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
     container.style.marginTop = "50px";
     document.body.appendChild(container);
 
-    // Function to create a card
     function createCard(placeholderText, cardNumber) {
         const card = document.createElement("div");
         card.classList.add("card");
@@ -54,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function() {
         card.style.alignItems = "center";
         card.style.boxShadow = "5px 5px 10px rgba(0, 0, 0, 0.3)";
 
-        // Create the placeholder div
         const placeholder = document.createElement("div");
         placeholder.classList.add("placeholder");
         placeholder.innerText = placeholderText;
@@ -63,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
         placeholder.style.marginBottom = "20px";
         card.appendChild(placeholder);
 
-        // Create the button
         const button = document.createElement("button");
         button.classList.add("select-btn");
         button.innerText = "Select";
@@ -76,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.borderRadius = "5px";
         button.addEventListener("click", () => buttonClicked(cardNumber));
 
-        // Add hover effect to button
         button.addEventListener("mouseover", () => {
             button.style.background = "#2980b9";
         });
@@ -85,17 +74,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         card.appendChild(button);
-
-        // Append the card to the container
         container.appendChild(card);
     }
 
-    // Function to handle button click
     function buttonClicked(cardNumber) {
         socket.emit("choice", cardNumber);
     }
-    
-    // Create two cards with placeholders
     
     createCard("e", 1);
     createCard("r", 2);
