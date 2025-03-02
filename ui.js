@@ -5,16 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (window.Twitch && window.Twitch.ext) {
         window.Twitch.ext.onContext((context) => {
             console.log("Twitch Context:", context.placement);
-            
+
             // Show the overlay content only if the extension is properly loaded in the right context
             if (context.placement === "overlay") {
-                document.body.style.display = "block"; // Show the content
+                document.body.style.display = "block"; // Show the content when in overlay mode
             } else {
                 document.body.style.display = "none"; // Hide content if not in overlay mode
             }
         });
         
-        window.Twitch.ext.actions.requestOpen();
+        window.Twitch.ext.actions.requestOpen(); // Request to open the extension on stream
     } else {
         console.log("Twitch Extension not available");
     }
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.style.backgroundSize = "cover";
     document.body.style.margin = 0;
     document.body.style.padding = 0;
-    document.body.style.display = "none"; // Hide initially
+    document.body.style.display = "none"; // Initially hide the body
 
     // Create the header
     const header = document.createElement("h1");
