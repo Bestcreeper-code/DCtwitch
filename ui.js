@@ -1,34 +1,12 @@
-document.addEventListener("DOMContentLoaded", function () {
+//ui.js
+
+document.addEventListener("DOMContentLoaded", function() {
     console.log("Extension settings UI loaded");
-
-    // Check if Twitch extension context is available
-    if (window.Twitch && window.Twitch.ext) {
-        window.Twitch.ext.onContext((context) => {
-            console.log("Twitch Context:", context.placement);
-
-            // Show the overlay content only if the extension is properly loaded in the right context
-            if (context.placement === "overlay") {
-                document.body.style.display = "block"; // Show the content when in overlay mode
-            } else {
-                document.body.style.display = "none"; // Hide content if not in overlay mode
-            }
-        });
-        
-        window.Twitch.ext.actions.requestOpen(); // Request to open the extension on stream
-    } else {
-        console.log("Twitch Extension not available");
-    }
-
-    // Set the background image and style for the body
     document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
     document.body.style.textAlign = "center";
     document.body.style.fontFamily = "Arial, sans-serif";
     document.body.style.backgroundSize = "cover";
-    document.body.style.margin = 0;
-    document.body.style.padding = 0;
-    document.body.style.display = "none"; // Initially hide the body
 
-    // Create the header
     const header = document.createElement("h1");
     header.innerText = "Choose an action";
     header.style.color = "yellow";
@@ -38,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     header.style.padding = "10px";
     document.body.appendChild(header);
 
-    // Create a container for the cards
     const container = document.createElement("div");
     container.classList.add("container");
     container.style.display = "flex";
@@ -47,14 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     container.style.marginTop = "50px";
     document.body.appendChild(container);
 
-    // Function to create cards
     function createCard(placeholderText, cardNumber) {
         const card = document.createElement("div");
         card.classList.add("card");
         card.style.width = "300px";
         card.style.height = "400px";
-        card.style.backgroundImage = "url('https://i.ibb.co/1YvxpZk/DCcard.png')";
-        card.style.backgroundSize = "cover";
+        card.style.backgroundImage = "https://i.ibb.co/1YvxpZk6/DCcard.png";
+        card.style.backgroundSize = "cover"; 
         card.style.backgroundPosition = "center";
         card.style.borderRadius = "12px";
         card.style.border = "2px solid black";
@@ -96,16 +72,21 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(card);
     }
 
-    // Function to handle button click event
+    socket.on("createcard", (choice1,choice2) => {
+        createCard(choice1, 1);
+        createCard(choice2, 2);
+    });
+
+
     function buttonClicked(cardNumber) {
-        if (window.Twitch && window.Twitch.ext) {
-            window.Twitch.ext.send("broadcast", "application/json", { choice: cardNumber });
-        } else {
-            console.log("Twitch Extension not available");
+        socket.emit("choice", cardNumber);
+        const container = document.querySelector(".container");
+        if (container) {
+        container.innerHTML = "";
         }
     }
-
-    // Create cards with sample texts
-    createCard("e", 1);
-    createCard("r", 2);
+    
+    createCard("ererer", 1);
+    createCard("rfregehtyherheyrezgrezgegz", 2);
+    socket.emit("setType", "Viewer");
 });
