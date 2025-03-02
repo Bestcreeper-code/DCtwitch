@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Extension Overlay Test</title>
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.Twitch && window.Twitch.ext) {
+                window.Twitch.ext.onContext(function (context) {
+                    console.log("Twitch Context:", context.placement);
+                    
+                    // Show the overlay content only if in the correct context
+                    if (context.placement === "overlay") {
+                        document.body.style.display = "block"; // Show the content
+                        document.getElementById("overlayContent").style.display = "block"; // Show the overlay
+                    } else {
+                        document.body.style.display = "none"; // Hide content if not in overlay mode
+                    }
+                });
+                
+                window.Twitch.ext.actions.requestOpen();
+            } else {
+                console.log("Twitch Extension not available");
+            }
+
+            // Default hidden content
+            document.body.style.display = "none"; // Hide content initially
+        });
+    </script>
+</head>
+<body>
+    <!-- Placeholder content for overlay -->
+    <div id="overlayContent" style="display: none; text-align: center;">
+        <h1 style="color: yellow; font-size: 32px; background-color: black; padding: 20px;">
+            This is a Test Overlay!
+        </h1>
+        <p style="font-size: 20px;">If you're seeing this, the overlay is working correctly.</p>
+    </div>
+</body>
+</html>
