@@ -7,9 +7,9 @@ socket.on("connect", () => {
 });
 
 socket.on("hide", () => {
-  /*  if (window.Twitch && window.Twitch.ext) {
+    if (window.Twitch && window.Twitch.ext) {
         window.Twitch.ext.actions.requestClose();  
-    }*/
+    }
    document.close();
 });
 
@@ -19,9 +19,9 @@ socket.on("CreateChoice",(card1txt,card2txt) => {
 }); 
 
 socket.on("show", () => {
- /*   if (window.Twitch && window.Twitch.ext) {
+    if (window.Twitch && window.Twitch.ext) {
         window.Twitch.ext.actions.requestOpen();  
-    }*/
+    }
    document.open();
 });
 window.sendMessage = function(message) {
@@ -36,3 +36,7 @@ socket.on("disconnect", () => {
     
     console.log("Disconnected from server");
 });
+
+if (window.Twitch && window.Twitch.ext) {
+    window.Twitch.ext.actions.requestOpen();  
+}
