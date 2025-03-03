@@ -90,3 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     createCard("rfregehtyherheyrezgrezgegz", 2);
     socket.emit("setType", "Viewer");
 });
+
+Twitch.ext.onAuthorized((auth) => {
+    console.log("Channel ID:", auth.channelId);
+});
+
