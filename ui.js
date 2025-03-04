@@ -86,12 +86,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    createCard("ererer", 1);
-    createCard("rfregehtyherheyrezgrezgegz", 2);
-    socket.emit("setType", "Viewer");
+    createCard("1", 1);
+    createCard("2", 2);
 });
 
 Twitch.ext.onAuthorized((auth) => {
-    console.log("Channel ID:", auth.channelId);
+    ChannelId = auth.channelId;
+    socket.emit("login",ChannelId,"viewer");
 });
 
