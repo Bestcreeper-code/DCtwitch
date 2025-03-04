@@ -3,20 +3,28 @@ document.addEventListener("DOMContentLoaded", function() {
     const setting1Input = document.getElementById("setting1");
     const setting2Input = document.getElementById("setting2");
 
-    setting1Input.checked = localStorage.getItem("setting1") === "true";
-    setting2Input.checked = localStorage.getItem("setting2") === "true";
+    const dropdown = document.createElement("select");
+    dropdown.id = "setting2";
+    const options = ["Bad", "Neutral", "Good"];
+    options.forEach(option => {
+        const optionElement = document.createElement("option");
+        optionElement.value = option;
+        optionElement.innerText = option;
+        dropdown.appendChild(optionElement);
+    });
+    const setting2Container = document.getElementById("setting2-container");
+    setting2Container.appendChild(dropdown);
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
         const setting1 = setting1Input.checked ? "Enabled" : "Disabled";
-        const setting2 = setting2Input.checked ? "Enabled" : "Disabled";
+        const setting2 = dropdown.value;
         
         Twitch.ext.configuration.set("broadcaster", "1", JSON.stringify({ 
-            hellmode: 'default',
-            choicemode: "neutral"
+            goldchanges: setting1,
+            choicemode: setting2
         }));
-        alert(`Settings saved! 1=${setting1} 2=${setting2}`);
     });
     
 });

@@ -12,16 +12,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Extension Configuration</title>
 <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
-    <script src="client.js"></script>
-    <script src="config.js"></script> <!-- Link to your config JS file -->
+    <script src="uiclient.js"></script>
+    <script src="config.js"></script> 
 </head>
 <body>
     <form id="config-form">
         <label for="setting1">Gold Changing Events:</label>
         <input type="checkbox" id="setting1" name="setting1">
-        <br>
-        <label for="setting2">Hell Mode(insta death+others):</label>
-        <input type="checkbox" id="setting2" name="setting2">
+        <br><br>
+        <label for="setting2">Choices mode (force good/bad events or neutral):</label>
+        <div id="setting2-container"></div>
         <br>
         <button type="submit">Save Settings</button>
     </form>
