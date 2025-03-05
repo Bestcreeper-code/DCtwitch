@@ -1,5 +1,14 @@
 //ui.js
 
+const events = [
+    { "name": "heal", "description": "Restores the player's health" }, 
+    { "name": "shield", "description": "Grants blocks to the player" }, 
+    { "name": "givegold", "description": "Grants gold to the player" },
+    { "name": "damage", "description": "Inflicts damage to the player" }, 
+    { "name": "steal", "description": "Steals gold from the player" }, 
+    { "name": "kill", "description": "Kills the player" }, 
+];
+
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Extension settings UI loaded");
     document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
@@ -73,13 +82,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     socket.on("createcard", (choice1,choice2) => {
-        createCard(choice1, 1);
-        createCard(choice2, 2);
+        createCard(choice1, choice1);
+        createCard(choice2, choice2);
     });
 
 
-    function buttonClicked(cardNumber) {
-        socket.emit("choice", cardNumber);
+    function buttonClicked(choice) {
+        socket.emit("choice", choice);
         const container = document.querySelector(".container");
         if (container) {
         container.innerHTML = "";

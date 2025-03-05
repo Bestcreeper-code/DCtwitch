@@ -18,6 +18,8 @@ socket.on("message", (message) => {
     console.log("Message received from server: ", message);
 });
 
+
+
 // Handle disconnection
 socket.on("disconnect", () => {
     console.log("Disconnected from server");
