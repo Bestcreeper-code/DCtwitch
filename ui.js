@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     container.style.marginTop = "50px";
     document.body.appendChild(container);
 
-    function createCard(name) {
+    function createCard(placeholderText, cardNumber) {
         const card = document.createElement("div");
         card.classList.add("card");
         card.style.width = "300px";
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         button.style.cursor = "pointer";
         button.style.fontSize = "18px";
         button.style.borderRadius = "5px";
-        button.addEventListener("click", () => buttonClicked(name));
+        button.addEventListener("click", () => buttonClicked(placeholderText));
 
         button.addEventListener("mouseover", () => {
             button.style.background = "#2980b9";
@@ -81,19 +81,10 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(card);
     }
 
-    socket.on("removecards", () => {
-        const container = document.querySelector(".container");
-        if (container) {
-        container.innerHTML = "";
-        }
-    });
-
     socket.on("createcard", (choice1,choice2) => {
         socket.emit("message", "yey" );
-        console.log("Card1:", choice1);
-        console.log("Card2:", choice2);
-        createCard(choice1);
-        createCard(choice2);
+        createCard(choice1, 1);
+        createCard(choice2, 2);
     });
 
 
@@ -105,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    createCard("1");
-    createCard("2");
+    createCard("1", 1);
+    createCard("2", 2);
 });
 
 Twitch.ext.onAuthorized((auth) => {
