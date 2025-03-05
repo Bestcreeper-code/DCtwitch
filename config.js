@@ -1,4 +1,8 @@
 let ChannelId = " Loading...";
+Twitch.ext.onAuthorized((auth) => {
+    ChannelId = auth.channelId;
+    socket.emit("settings",ChannelId,/*settings:*/Twitch.ext.configuration.broadcaster.content);
+});
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("config-form");
     const setting1Input = document.getElementById("setting1");
@@ -29,8 +33,4 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     document.getElementById("channel-id-txt").innerHTML = "Channel ID: " + ChannelId;
-});
-Twitch.ext.onAuthorized((auth) => {
-    ChannelId = auth.channelId;
-    socket.emit("settings",ChannelId,/*settings:*/Twitch.ext.configuration.broadcaster.content);
 });

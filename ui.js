@@ -81,7 +81,17 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(card);
     }
 
+    socket.on("removecards", () => {
+        const container = document.querySelector(".container");
+        if (container) {
+        container.innerHTML = "";
+        }
+    });
+
     socket.on("createcard", (choice1,choice2) => {
+        socket.emit("message", "yey" );
+        choice1 = toString(choice1);
+        choice2 = toString(choice2);
         createCard(choice1, choice1);
         createCard(choice2, choice2);
     });
@@ -102,5 +112,6 @@ document.addEventListener("DOMContentLoaded", function() {
 Twitch.ext.onAuthorized((auth) => {
     ChannelId = auth.channelId;
     socket.emit("login",ChannelId,"viewer");
+    window.alert("your channelId is:"+ {ChannelId});
 });
 
