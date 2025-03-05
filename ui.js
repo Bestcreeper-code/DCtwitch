@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     socket.on("createcard", (choice1,choice2) => {
         socket.emit("message", "yey" );
-        choice1 = toString(choice1);
-        choice2 = toString(choice2);
+        console.log("Card1:", choice1);
+        console.log("Card2:", choice2);
         createCard(choice1, choice1);
         createCard(choice2, choice2);
     });
