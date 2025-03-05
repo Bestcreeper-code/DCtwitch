@@ -1,15 +1,15 @@
-//ui.js
+let timeleft = 40;  
 
 const events = [
-    { "name": "heal", "description": "Restores the player's health" }, 
-    { "name": "shield", "description": "Grants blocks to the player" }, 
+    { "name": "heal", "description": "Restores the player's health" },
+    { "name": "shield", "description": "Grants blocks to the player" },
     { "name": "givegold", "description": "Grants gold to the player" },
-    { "name": "damage", "description": "Inflicts damage to the player" }, 
-    { "name": "steal", "description": "Steals gold from the player" }, 
-    { "name": "kill", "description": "Kills the player" }, 
+    { "name": "damage", "description": "Inflicts damage to the player" },
+    { "name": "steal", "description": "Steals gold from the player" },
+    { "name": "kill", "description": "Kills the player" },
 ];
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     console.log("Extension settings UI loaded");
     document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
     document.body.style.textAlign = "center";
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
         card.style.width = "300px";
         card.style.height = "400px";
         card.style.backgroundImage = "https://i.ibb.co/1YvxpZk6/DCcard.png";
-        card.style.backgroundSize = "cover"; 
+        card.style.backgroundSize = "cover";
         card.style.backgroundPosition = "center";
         card.style.borderRadius = "12px";
         card.style.border = "2px solid black";
@@ -81,28 +81,44 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(card);
     }
 
-    socket.on("createcard", (choice1,choice2) => {
-        socket.emit("message", "yey" );
+    socket.on("createcard", (choice1, choice2, serverTime) => {
+        socket.emit("message", "yey");
+        timeleft = serverTime || 40; 
         createCard(choice1, 1);
         createCard(choice2, 2);
+        countdown(); 
     });
-
 
     function buttonClicked(choice) {
         socket.emit("choice", choice);
         const container = document.querySelector(".container");
         if (container) {
-        container.innerHTML = "";
+            container.innerHTML = "";
         }
     }
-    
+
+    async function countdown() {
+        const header = document.querySelector("h1");
+        if (header) {
+            header.innerText = "Choose an action (" + timeleft + "s left)";
+        }
+        if (timeleft <= 0) {
+            const container = document.querySelector(".container");
+            if (container) {
+                container.innerHTML = ""; 
+            }
+        } else {
+            timeleft -= 1;
+            setTimeout(countdown, 1000); 
+        }
+    }
+
     createCard("1", 1);
     createCard("2", 2);
 });
 
 Twitch.ext.onAuthorized((auth) => {
     ChannelId = auth.channelId;
-    socket.emit("login",ChannelId,"viewer");
-    window.alert("your channelId is:"+ {ChannelId});
+    socket.emit("login", ChannelId, "viewer");
+    window.alert("your channelId is:" + ChannelId);
 });
-
