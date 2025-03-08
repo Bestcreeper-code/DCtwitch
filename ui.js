@@ -1,6 +1,7 @@
 //ui.js
 let Channel_Id = "placeholder";
 let timeleft = 40;  
+let curr_votes ;
 
 const events = [
     { "name": "heal", "description": "Restores the player's health" },
@@ -83,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(card);
     }
     const body = document.body;
+
     socket.on("createcard", (choice1, choice2, serverTime) => {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
@@ -93,6 +95,11 @@ document.addEventListener("DOMContentLoaded", function () {
         createCard(choice2, 2);
         countdown(); 
     });
+
+    socket.on("updatevotes", (votes) => {
+        curr_votes = votes;
+    });
+
 
    function buttonClicked(choice) {
     socket.emit("choice", choice, Channel_Id);
@@ -106,7 +113,7 @@ async function countdown() {
         timeleft = 40;
     }
     if (header) {
-        header.innerText = "Choose an action (" + timeleft + "s left)";
+        header.innerText = "Choose an action (" + timeleft + "s left)\n Votes: " + JSON.stringify(curr_votes);
     }
     if (timeleft <= 0) {
         const container = document.querySelector(".container");
