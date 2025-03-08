@@ -106,6 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function countdown() {
+        if (timeleft == null) {
+            timeleft = 40;
+        }
         if (header) {
             header.innerText = "Choose an action (" + timeleft + "s left)";
         }
