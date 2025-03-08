@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
    function buttonClicked(choice) {
-    socket.emit("choice", choice, ChannelId);
+    socket.emit("choice", choice, Channel_Id);
     const container = document.querySelector(".container");
     container.innerHTML = "";
 }
