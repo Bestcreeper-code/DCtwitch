@@ -1,4 +1,5 @@
 //ui.js
+ChannelId = " Loading...";
 let timeleft = 40;  
 
 const events = [
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
    function buttonClicked(choice) {
-    socket.emit("choice", choice);
+    socket.emit("choice", choice, ChannelId);
     const container = document.querySelector(".container");
     container.innerHTML = "";
 }
