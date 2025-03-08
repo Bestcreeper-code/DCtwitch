@@ -106,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function countdown() {
-        const header = document.querySelector("h1");
         if (header) {
             header.innerText = "Choose an action (" + timeleft + "s left)";
         }
