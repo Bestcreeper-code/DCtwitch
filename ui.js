@@ -1,5 +1,5 @@
 //ui.js
-ChannelId = " Loading...";
+let ChannelId = " Loading...";
 let timeleft = 40;  
 
 const events = [
