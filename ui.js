@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const container = document.querySelector(".container");
             if (container) {
                 container.innerHTML = ""; 
+                socket.emit("message", "timeout");
             }
         } else {
             timeleft -= 1;
