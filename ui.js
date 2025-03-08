@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 async function countdown() {
+    socket.emit("message", timeleft);
     if (timeleft == null) {
         timeleft = 40;
     }
@@ -113,10 +114,10 @@ async function countdown() {
         }
         socket.emit("message", "timeout");
 
-        body.style.opacity = "0";
+        /*body.style.opacity = "0";
         header.style.visibility = "hidden";
         document.body.style.backgroundImage = "none"; 
-        document.body.style.backgroundColor = "transparent";
+        document.body.style.backgroundColor = "transparent";*/
         
         
         return; 
