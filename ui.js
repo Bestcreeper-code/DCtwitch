@@ -1,5 +1,5 @@
 //ui.js
-let ChannelId = " Loading...";
+let Channel_Id = "placeholder";
 let timeleft = 40;  
 
 const events = [
@@ -134,7 +134,7 @@ async function countdown() {
 });
 
 Twitch.ext.onAuthorized((auth) => {
-    ChannelId = auth.channelId;
-    socket.emit("login", ChannelId, "viewer");
-    window.alert("your channelId is:" + ChannelId);
+    Channel_Id = auth.channelId;
+    socket.emit("login", Channel_Id, "viewer");
+    window.alert("your channelId is:" + Channel_Id);
 });
