@@ -1,3 +1,4 @@
+//ui.js
 let timeleft = 40;  
 
 const events = [
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
         timeleft = serverTime || 40; 
         if (body) {
             body.innerHTML = ""; 
-            body.style.display = "flex";
+            body.style.visibility = "visible";
             body.style.opacity = "1"; 
         }
         createCard(choice1, 1);
@@ -99,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const container = document.querySelector(".container");
         container.innerHTML = "";
         if (body) {
-            body.style.display = "none";
+            body.style.opacity = "0";
+            body.style.visibility = "hidden";
         }
     }
 
