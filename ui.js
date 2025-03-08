@@ -85,44 +85,47 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.on("createcard", (choice1, choice2, serverTime) => {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
-        if (body) {
-            body.innerHTML = ""; 
-            body.style.visibility = "visible";
-            body.style.opacity = "1"; 
-        }
+        document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
+        document.body.style.opacity = "1";
+        container.innerHTML = "";
         createCard(choice1, 1);
         createCard(choice2, 2);
         countdown(); 
     });
 
-    function buttonClicked(choice) {
-        socket.emit("choice", choice);
-        const container = document.querySelector(".container");
-        container.innerHTML = "";
-        if (body) {
-            body.style.opacity = "0";
-            body.style.visibility = "hidden";
-        }
-    }
+   function buttonClicked(choice) {
+    socket.emit("choice", choice);
+    const container = document.querySelector(".container");
+    container.innerHTML = "";
+}
 
-    async function countdown() {
-        if (timeleft == null) {
-            timeleft = 40;
-        }
-        if (header) {
-            header.innerText = "Choose an action (" + timeleft + "s left)";
-        }
-        if (timeleft <= 0) {
-            const container = document.querySelector(".container");
-            if (container) {
-                container.innerHTML = ""; 
-                socket.emit("message", "timeout");
-            }
-        } else {
-            timeleft -= 1;
-            setTimeout(countdown, 1000); 
-        }
+async function countdown() {
+    if (timeleft == null) {
+        timeleft = 40;
     }
+    if (header) {
+        header.innerText = "Choose an action (" + timeleft + "s left)";
+    }
+    if (timeleft <= 0) {
+        const container = document.querySelector(".container");
+        if (container) {
+            container.innerHTML = ""; 
+        }
+        socket.emit("message", "timeout");
+
+        body.style.opacity = "0";
+        header.style.visibility = "hidden";
+        document.body.style.backgroundImage = "none"; 
+        document.body.style.backgroundColor = "transparent";
+        
+        
+        return; 
+    }
+    
+    timeleft -= 1;
+    setTimeout(countdown, 1000);
+}
+
 
     createCard("1", 1);
     createCard("2", 2);
