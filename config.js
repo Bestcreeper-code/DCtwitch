@@ -6,7 +6,7 @@ Twitch.ext.onAuthorized((auth) => {
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("config-form");
     const setting1Input = document.getElementById("setting1");
-    const setting2Input = document.getElementById("setting2");
+    const setting3Input = document.getElementById("setting3");
 
     const dropdown = document.createElement("select");
     dropdown.id = "setting2";
@@ -25,10 +25,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const setting1 = setting1Input.checked ? "Enabled" : "Disabled";
         const setting2 = dropdown.value;
+        const setting3 = setting3Input.value;
         
         Twitch.ext.configuration.set("broadcaster", "1", JSON.stringify({ 
             goldchanges: setting1,
-            choicemode: setting2
+            choicemode: setting2,
+            choice_timer: setting3 || 120
         }));
     });
     

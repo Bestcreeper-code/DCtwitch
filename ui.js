@@ -80,10 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
         card.appendChild(button);
         container.appendChild(card);
     }
-
+    const body = document.body;
     socket.on("createcard", (choice1, choice2, serverTime) => {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
+        if (body) {
+            body.innerHTML = ""; 
+            body.style.display = "flex";
+            body.style.opacity = "1"; 
+        }
         createCard(choice1, 1);
         createCard(choice2, 2);
         countdown(); 
@@ -92,8 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function buttonClicked(choice) {
         socket.emit("choice", choice);
         const container = document.querySelector(".container");
-        if (container) {
-            container.innerHTML = "";
+        container.innerHTML = "";
+        if (body) {
+            body.style.display = "none";
         }
     }
 
