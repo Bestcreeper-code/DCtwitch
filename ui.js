@@ -4,12 +4,13 @@ let timeleft = 40;
 let curr_votes ;
 
 const events = [
-    { "name": "heal", "description": "Restores the player's health" },
-    { "name": "shield", "description": "Grants blocks to the player" },
-    { "name": "givegold", "description": "Grants gold to the player" },
-    { "name": "damage", "description": "Inflicts damage to the player" },
-    { "name": "steal", "description": "Steals gold from the player" },
-    { "name": "kill", "description": "Kills the player" },
+    { "name": "Heal", "description": "Restores the player's health" },
+    { "name": "Give Gold", "description": "Grants gold to the player" },
+    { "name": "Give Perk", "description": "Grants a random perk to the player" },
+    { "name": "Give Item", "description": "Grants a random item to the player" },
+    { "name": "Hurt", "description": "Inflicts damage to the player" },
+    { "name": "Rob", "description": "Steals gold from the player" },
+    { "name": "Kill", "description": "Kills the player" }
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     header.style.fontSize = "28px";
     header.style.fontWeight = "bold";
     header.style.background = "black";
-    header.style.padding = "10px";
+        header.style.padding = "10px";
     document.body.appendChild(header);
 
     const container = document.createElement("div");
@@ -60,6 +61,23 @@ document.addEventListener("DOMContentLoaded", function () {
         placeholder.style.color = "black";
         placeholder.style.marginBottom = "20px";
         card.appendChild(placeholder);
+
+        const description = document.createElement("div");
+        description.classList.add("description");
+        description.innerText = events.find((event) => event.name === placeholderText).description;
+        description.style.fontSize = "18px";
+        description.style.color = "black";
+        description.style.marginBottom = "20px";
+        card.appendChild(description);
+
+        const image = document.createElement("img");
+        image.src = `.//images/${placeholderText.toLowerCase().replace(" ", "-")}.png`;
+
+        image.style.minWidth = "100px";
+        image.style.minHeight = "100px";
+        image.style.maxWidth = "150px";
+        image.style.maxHeight = "150px";
+        card.appendChild(image);
 
         const button = document.createElement("button");
         button.classList.add("select-btn");
@@ -113,7 +131,10 @@ async function countdown() {
         timeleft = 40;
     }
     if (header) {
-        header.innerText = "Choose an action (" + timeleft + "s left)\n Votes: " + JSON.stringify(curr_votes);
+        let result = Object.entries(curr_votes)
+            .map(([key, value]) => `${key}:${value}`)
+            .join(' ');
+        header.innerText = "Choose an action (" + timeleft + "s left)\n Votes: " + JSON.stringify(result);
     }
     if (timeleft <= 0) {
         const container = document.querySelector(".container");
@@ -136,8 +157,8 @@ async function countdown() {
 }
 
 
-    createCard("1", 1);
-    createCard("2", 2);
+    createCard("Heal", 1);
+    createCard("Kill", 2);
 });
 
 Twitch.ext.onAuthorized((auth) => {
