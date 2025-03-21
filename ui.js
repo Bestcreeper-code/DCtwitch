@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         card.classList.add("card");
         card.style.width = "300px";
         card.style.height = "400px";
-        card.style.backgroundImage = "https://i.ibb.co/1YvxpZk6/DCcard.png";
+        card.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
         card.style.backgroundSize = "cover";
         card.style.backgroundPosition = "center";
         card.style.borderRadius = "12px";
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.on("createcard", (choice1, choice2, serverTime) => {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
-        document.body.style.backgroundImage = 'https://i.ibb.co/WW6T2ZTQ/DCBackgound.png';
+        document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
         toggleOverlayVisibility(true);
         container.innerHTML = "";
         createCard(choice1, 1);
@@ -136,7 +136,7 @@ function toggleOverlayVisibility(show) {
         header.style.visibility = "visible";
         body.style.pointerEvents = "auto";
         container.style.display = "flex";
-        document.body.style.backgroundImage = 'https://i.ibb.co/WW6T2ZTQ/DCBackgound.png';
+        document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
     } else {
         body.style.opacity = "0";
         header.style.visibility = "hidden";
