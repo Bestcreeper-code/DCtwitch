@@ -15,7 +15,7 @@ const events = [
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Extension settings UI loaded");
-    document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
+    document.body.style.backgroundImage = 'https://i.ibb.co/WW6T2ZTQ/DCBackgound.png';
     document.body.style.textAlign = "center";
     document.body.style.fontFamily = "Arial, sans-serif";
     document.body.style.backgroundSize = "cover";
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.on("createcard", (choice1, choice2, serverTime) => {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
-        document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
+        document.body.style.backgroundImage = 'https://i.ibb.co/WW6T2ZTQ/DCBackgound.png';
         toggleOverlayVisibility(true);
         container.innerHTML = "";
         createCard(choice1, 1);
@@ -136,7 +136,7 @@ function toggleOverlayVisibility(show) {
         header.style.visibility = "visible";
         body.style.pointerEvents = "auto";
         container.style.display = "flex";
-        body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
+        document.body.style.backgroundImage = 'https://i.ibb.co/WW6T2ZTQ/DCBackgound.png';
     } else {
         body.style.opacity = "0";
         header.style.visibility = "hidden";
