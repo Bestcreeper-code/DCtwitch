@@ -1,5 +1,5 @@
 //ui.js
-let Channel_Id = "placeholder";
+let Channel_Id = "-1";
 let timeleft = 40;  
 let curr_votes ;
 
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
         document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
-        document.body.style.opacity = "1";
+        toggleOverlayVisibility(true);
         container.innerHTML = "";
         createCard(choice1, 1);
         createCard(choice2, 2);
@@ -119,17 +119,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-   function buttonClicked(choice) {
+function buttonClicked(choice) {
     socket.emit("choice", choice, Channel_Id);
     const container = document.querySelector(".container");
     container.innerHTML = "";
+    toggleOverlayVisibility(false);
 }
+
+function toggleOverlayVisibility(show) {
+    const body = document.body;
+    const header = document.querySelector("h1");
+    const container = document.querySelector(".container");
+
+    if (show) {
+        body.style.opacity = "1";
+        header.style.visibility = "visible";
+        body.style.pointerEvents = "auto";
+        container.style.display = "flex";
+        body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
+    } else {
+        body.style.opacity = "0";
+        header.style.visibility = "hidden";
+        body.style.pointerEvents = "none";
+        container.style.display = "none";
+        body.style.backgroundImage = "none";
+    }
+}
+
 
 async function countdown() {
     socket.emit("message", timeleft);
-    if (timeleft == null) {
-        timeleft = 40;
-    }
     if (header) {
         let result = Object.entries(curr_votes)
             .map(([key, value]) => `${key}:${value}`)
@@ -140,14 +159,9 @@ async function countdown() {
         const container = document.querySelector(".container");
         if (container) {
             container.innerHTML = ""; 
+            toggleOverlayVisibility(false);
         }
         socket.emit("message", "timeout");
-
-        /*body.style.opacity = "0";
-        header.style.visibility = "hidden";
-        document.body.style.backgroundImage = "none"; 
-        document.body.style.backgroundColor = "transparent";*/
-        
         
         return; 
     }

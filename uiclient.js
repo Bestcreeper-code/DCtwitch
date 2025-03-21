@@ -1,26 +1,18 @@
-//client.js
-// Import the socket.io-client library
+    const socket = io("twitch-ext-ser-production.up.railway.app", {
+        path: "/socket.io/",
+        transports: ["websocket", "polling"],
+    });
 
+    window.socket = socket;
 
-// Connect to the server (replace with your server URL)
-const socket = io("http://localhost:3000");
+    socket.on("connect", () => {
+        console.log("Connected to server with ID: ", socket.id);
+    });
 
-window.socket = socket;
-// Handle connection event
-socket.on("connect", () => {
-    console.log("Connected to server with ID: ", socket.id);
-});
+    socket.on("message", (message) => {
+        console.log("Message received from server: ", message);
+    });
 
-
-
-// Receive messages from the server
-socket.on("message", (message) => {
-    console.log("Message received from server: ", message);
-});
-
-
-
-// Handle disconnection
-socket.on("disconnect", () => {
-    console.log("Disconnected from server");
-});
+    socket.on("disconnect", () => {
+        console.log("Disconnected from server");
+    });
