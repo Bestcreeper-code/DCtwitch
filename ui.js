@@ -164,7 +164,7 @@ async function countdown() {
     setTimeout(countdown, 1000);
 }
 
-
+createCard("Hello", "Click on the button to start", 1);
 });
 
 Twitch.ext.onAuthorized((auth) => {
