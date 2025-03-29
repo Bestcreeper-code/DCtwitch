@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     container.style.marginTop = "50px";
     document.body.appendChild(container);
 
-    function createCard(placeholderText,description, cardNumber) {
+    function createCard(placeholderText,cardesc, cardNumber) {
         console.log("Creating card", cardNumber, "with text:", placeholderText);
         const card = document.createElement("div");
         card.classList.add("card");
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const description = document.createElement("div");
         description.classList.add("description");
-        description.innerText = description;
+        description.innerText = cardesc;
         description.style.fontSize = "18px";
         description.style.color = "black";
         description.style.marginBottom = "20px";
