@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(container);
 
     function createCard(placeholderText,description, cardNumber) {
+        console.log("Creating card", cardNumber, "with text:", placeholderText);
         const card = document.createElement("div");
         card.classList.add("card");
         card.style.width = "300px";
@@ -169,5 +170,6 @@ createCard("Hello", "Click on the button to start", 1);
 
 Twitch.ext.onAuthorized((auth) => {
     Channel_Id = auth.channelId;
+    console.log("Channel ID:", Channel_Id);
     socket.emit("login", Channel_Id, "viewer");
 });
