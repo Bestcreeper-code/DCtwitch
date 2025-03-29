@@ -7,6 +7,7 @@
 
     socket.on("connect", () => {
         console.log("Connected to server with ID: ", socket.id);
+        socket.emit("fetchevents");
     });
 
     socket.on("message", (message) => {

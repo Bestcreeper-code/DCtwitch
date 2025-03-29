@@ -3,15 +3,7 @@ let Channel_Id = "-1";
 let timeleft = 40;  
 let curr_votes ;
 
-const events = [
-    { "name": "Heal", "description": "Restores the player's health" },
-    { "name": "Give Gold", "description": "Grants gold to the player" },
-    { "name": "Give Perk", "description": "Grants a random perk to the player" },
-    { "name": "Give Item", "description": "Grants a random item to the player" },
-    { "name": "Hurt", "description": "Inflicts damage to the player" },
-    { "name": "Rob", "description": "Steals gold from the player" },
-    { "name": "Kill", "description": "Kills the player" }
-];
+
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Extension settings UI loaded");
@@ -37,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     container.style.marginTop = "50px";
     document.body.appendChild(container);
 
-    function createCard(placeholderText, cardNumber) {
+    function createCard(placeholderText,description, cardNumber) {
         const card = document.createElement("div");
         card.classList.add("card");
         card.style.width = "300px";
@@ -64,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const description = document.createElement("div");
         description.classList.add("description");
-        description.innerText = events.find((event) => event.name === placeholderText).description;
+        description.innerText = description;
         description.style.fontSize = "18px";
         description.style.color = "black";
         description.style.marginBottom = "20px";
@@ -103,16 +95,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const body = document.body;
 
-    socket.on("createcard", (choice1, choice2, serverTime) => {
+    socket.on("createcard", (choice1, choice1desc, choice2, choice2desc, serverTime) => {
         socket.emit("message", "yey");
         timeleft = serverTime || 40; 
         document.body.style.backgroundImage = "url('https://i.ibb.co/WW6T2ZTQ/DCBackgound.png')";
         toggleOverlayVisibility(true);
         container.innerHTML = "";
-        createCard(choice1, 1);
-        createCard(choice2, 2);
+        createCard(choice1, choice1desc, 1);
+        createCard(choice2, choice2desc, 2);
         countdown(); 
     });
+
+    
 
     socket.on("updatevotes", (votes) => {
         curr_votes = votes;
@@ -145,7 +139,7 @@ function toggleOverlayVisibility(show) {
         body.style.backgroundImage = "none";
     }
 }
-
+    
 
 async function countdown() {
     socket.emit("message", timeleft);
@@ -171,12 +165,9 @@ async function countdown() {
 }
 
 
-    createCard("Heal", 1);
-    createCard("Kill", 2);
 });
 
 Twitch.ext.onAuthorized((auth) => {
     Channel_Id = auth.channelId;
     socket.emit("login", Channel_Id, "viewer");
-    window.alert("your channelId is:" + Channel_Id);
 });
